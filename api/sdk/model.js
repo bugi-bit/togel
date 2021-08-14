@@ -28,7 +28,7 @@ async function predict(data){
 
     try{
         // path load in public access => github
-        const path = 'https://raw.githubusercontent.com/bugi-bit/dnn/main/public/tog_model/model.json';
+        const path = 'https://raw.githubusercontent.com/bugi-bit/togel/main/public/tog_model/model.json';
         const model = await tf.loadGraphModel(path);
         
         predict = model.predict(
