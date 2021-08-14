@@ -1,16 +1,18 @@
 const tf = require('@tensorflow/tfjs-node');
 
 function normalized(data){ // i & r
-    i = (data[0] - 213.266666666667) / 7.7072300277168
-    r = (data[1] - 213.741666666667) / 7.7438012281854
+    i = (data[0] - 15.61) / 9.00685947419741
+    r = (data[1] - 4.55) / 1.94587567968872
     return [i, r]
 }
 
 
 function denormalized(data){
-    v = (data[0] * 0.100312447725892) + 0.842083333333333
-    p = (data[1] * 7.76781144854453) + 213.504166666667
-    return [v, p]
+    v = (data[0] * 2.5862105189804) + 5.28
+    p = (data[1] * 3.04795013082563) + 4.73
+    m = (data[2] * 2.87300216048325) + 4.78
+    d = (data[3] * 2.96007097921996) + 4.84
+    return [v, p, m, d]
 }
 //     p = (data[2] - 0.842) / 0.100
 //     s = (data[3] - 213.504 / 7.705
@@ -26,7 +28,7 @@ async function predict(data){
 
     try{
         // path load in public access => github
-        const path = 'https://raw.githubusercontent.com/bugi-bit/dnn/main/public/ex_model/model.json';
+        const path = 'https://raw.githubusercontent.com/bugi-bit/dnn/main/public/tog_model/model.json';
         const model = await tf.loadGraphModel(path);
         
         predict = model.predict(
