@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Use Deep Neural Network</p>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/p">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/set" target="_blank">Seting</a>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    
+    <span>
+        Right Radius = <span id="i"><%= i %></span> mm
+    </span><br/>
+    <span>
+        Left Radius = <span id="r"><%= r %></span> mm
+    </span><br/>
+    
+    <span>
+        Predicted Pressure Shaping = <span id="v">**</span> kg/cm2
+    </span><br/>
+    <span>
+        Predicted Setting Radius = <span id="p">**</span> mm
+    </span><br/>
+    <span>
+        Labels = <span id="l">**</span>
+    </span><br/>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <script>	
+	function classify(){
+	  let i = $("#i").text();
+	  let r = $("#r").text();
+	  
+          $.get(`/api/classify/${i}/${r}`).done(function(dt){
+              
+              $("#v").text(dt['jres'][0])
+              $("#p").text(dt['jres'][1])
+              $("#l").text(dt['jres_'])
+              console.log(dt['jres'])
+              console.log(dt['jres_'])
+          });
+	}
+	
+	classify();
+	
+        setInterval(function(){ 
+        	classify();
+        }, 5000);
+    </script>
+  
+
+</body>
+</html>
